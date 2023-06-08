@@ -1,0 +1,99 @@
+//for actual code you may contact at Email ID : tusharpaul2001@gmail.com
+//some part of the code is private, so you may contact through email 
+
+
+const int trigPin = 5;
+const int echoPin = 18;
+
+#define SOUND_SPEED 0.034
+#define CM_TO_INCH 0.393701
+                                         //ultasonic Sensor
+double duration;
+double distanceCm;
+//float distanceInch;
+
+#include <DHT.h>
+#define DHT_SENSOR_PIN  23 // ESP32 pin GIOP21 connected to DHT22 sensor
+#define DHT_SENSOR_TYPE DHT22                                                     // for Humidity and temperature sensor  DHT 22
+
+DHT dht_sensor(DHT_SENSOR_PIN, DHT_SENSOR_TYPE);
+
+void setup(){
+    Serial.begin(115200);
+    delay(1000);
+
+   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output                      //ultasonic Sensor
+   pinMode(echoPin, INPUT); // Sets the echoPin as an Input
+   dht_sensor.begin();                                                          // initialize the DHT sensor
+
+}
+
+void loop()
+{
+
+  // read humidity
+  double humi  = dht_sensor.readHumidity();
+  // read temperature in Celsius
+  double tempC = dht_sensor.readTemperature();
+  // read temperature in Fahrenheit
+  double tempF = dht_sensor.readTemperature(true);
+
+  // check whether the reading is successful or not
+  if ( isnan(tempC) || isnan(tempF) || isnan(humi)) {
+    Serial.println("Failed to read from DHT sensor!");          // Humidity and temperature  Sensor DHT22
+  } else {
+    Serial.print("Humidity: ");
+    Serial.print(humi);
+    Serial.print("%");
+
+    Serial.print("  |  ");
+
+    Serial.print("Temperature: ");
+    Serial.print(tempC);
+    Serial.print("°C  ~  ");
+    Serial.print(tempF);
+    Serial.println("°F");
+
+  }
+  delay(1000);
+
+//********//
+  // Clears the trigPin
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  // Sets the trigPin on HIGH state for 10 micro seconds
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(echoPin, HIGH);
+  
+  // Calculate the distance
+  distanceCm = duration * SOUND_SPEED/2;                                          //Ultasonic sensor
+  
+  // Convert to inches
+ // distanceInch = distanceCm * CM_TO_INCH;
+  
+  // Prints the distance in the Serial Monitor
+  Serial.print("Distance (cm): ");
+  Serial.println(distanceCm);
+ // Serial.print("Distance (inch): ");
+ // Serial.println(distanceInch);
+  
+  delay(1000);
+
+//*****//
+  
+    double a = analogRead(AOUT_PIN); // read the analog value from sensor
+    double value= (1-(a/10000))*100;
+    Serial.print("Moisture value: ");                                          // mositure sensor
+    Serial.print(value);
+    Serial.print("%");
+    //Serial.println(a);
+
+ //*****//  
+
+}
+
+
