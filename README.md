@@ -1,6 +1,6 @@
 # Early-Warning-Landslide-Detection
 
-Our youtube link check it out to know more : https://www.youtube.com/watch?v=d5jCX5orjSI&t=113s&ab_channel=TusharPaul
+**Our youtube link check it out to know more : https://www.youtube.com/watch?v=d5jCX5orjSI&t=113s&ab_channel=TusharPaul**
 
 IoT and ML use sensors to collect data on factors such as inclination, distance, moisture content, temperature, humidity, and vibrations to provide early warnings of landslides in real-time, enabling timely evacuation and mitigation measures.
 
